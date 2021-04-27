@@ -1,6 +1,12 @@
 .DS_Store
 .ipynb_checkpoints
 
+#data - early drafts not needed in final repo
+json_pr.json
+json_ra.json
+pettyrev.csv
+relatadv.csv
+
 #folder with drafts
 scratch/
 
