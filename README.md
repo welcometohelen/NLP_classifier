@@ -1,167 +1,54 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 3: Web APIs & NLP
 
-### Description
+### Problem Statement
 
-In week four we've learned about a few different classifiers. In week five we'll learn about webscraping, APIs, and Natural Language Processing (NLP). This project will put those skills to the test.
+The goal of this project is to create a Natural Language Processing (NLP) classifier.  The narrative for presentation was a far-fetched scenario but goes as follows:  
+'The previous moderator of Reddit's popular forums r/Relationship_advice and r/Pettyrevenge has been forced to resign due to excessive content removal, and on his way stepping down from power he burned the house down.  He has sabotaged his successor by stripped te classifications from all posts made during his tenure.  It is our job to go about resotring post to their proper threads so users can interact with their desired communities.  Sloppy classification risks offending constituents of both subreddits.  Archived data will be used to build a classifier.'  
 
-For project 3, your goal is two-fold:
-1. Using [Pushshift's](https://github.com/pushshift/api) API, you'll collect posts from two subreddits of your choosing.
-2. You'll then use NLP to train a classifier on which subreddit a given post came from. This is a binary classification problem.
-
-
-#### About the API
-
-Pushshift's API is fairly straightforward. For example, if I want the posts from [`/r/boardgames`](https://www.reddit.com/r/boardgames), all I have to do is use the following url: https://api.pushshift.io/reddit/search/submission?subreddit=boardgames
-
-To help you get started, we have a primer video on how to use the API: https://youtu.be/AcrjEWsMi_E
+This project utilizes webscraping, sklearn's NLP toolkit, EDA, and iterative modeling to provide several classifiers that can sort these subreddit posts with >- .95 F1 scores, accuracy, and recall.
 
 ---
 
-### Requirements
+### Methods
 
-- Gather and prepare your data using the `requests` library.
-- **Create and compare at least two models**. These can be any classifier of your choosing: logistic regression, Naive Bayes, KNN, SVM, Random Forest Classifier, etc.
-  - **Bonus**: use a Naive Bayes classifier
-- A Jupyter Notebook with your analysis for a peer audience of data scientists.
-- An executive summary of your results.
-- A short presentation outlining your process and findings for a semi-technical audience.
+Posts were scraped from subreddits 'pettyrevenge' and 'relationship_advice' via looping over [Pushshift's](https://github.com/pushshift/api) API.  About 6,500 documents per subreddit were initially retrieved, and after cleaning the final dataset consists of 6,093 posts from 'relationship_advice' (51%) and 5,907 posts from 'pettyrevenge'.  The code for the retrieval and dataframe creation is in Notebook A.  
 
-**Pro Tip:** You can find a good example executive summary [here](https://www.proposify.biz/blog/executive-summary).
+Cleaning involved dropping 'removed' and 'deleted' posts, removing URLS (and any items whose text were exclusively URLs).  Structural characteristics such as number of sentences per post, average sentence length, and use of punctuation were preserved in new columns, then all special characters were stripped from the documents to allow for efficient lemmatization and vectorization.  This occurs in Notebook B, along with all EDA and visualizations.  
 
----
-
-### Necessary Deliverables / Submission
-
-- Code and executive summary must be in a clearly commented Jupyter Notebook.
-- You must submit your slide deck.
-- Materials must be submitted by **11:59 PM PST on Friday, April 30th**.
-- Presentation must be ready by **9:15 AM PST on Friday, April 30th**.
-
----
-
-## Rubric
-Your instructors will evaluate your project (for the most part) using the following criteria.  You should make sure that you consider and/or follow most if not all of the considerations/recommendations outlined below **while** working through your project.
-
-For Project 3 the evaluation categories are as follows:<br>
-**The Data Science Process**
-- Problem Statement
-- Data Collection
-- Data Cleaning & EDA
-- Preprocessing & Modeling
-- Evaluation and Conceptual Understanding
-- Conclusion and Recommendations
-
-**Organization and Professionalism**
-- Organization
-- Visualizations
-- Python Syntax and Control Flow
-- Presentation
-
-**Scores will be out of 30 points based on the 10 categories in the rubric.** <br>
-*3 points per section*<br>
-
-| Score | Interpretation |
-| --- | --- |
-| **0** | *Project fails to meet the minimum requirements for this item.* |
-| **1** | *Project meets the minimum requirements for this item, but falls significantly short of portfolio-ready expectations.* |
-| **2** | *Project exceeds the minimum requirements for this item, but falls short of portfolio-ready expectations.* |
-| **3** | *Project meets or exceeds portfolio-ready expectations; demonstrates a thorough understanding of every outlined consideration.* |
-
-
-### The Data Science Process
-
-**Problem Statement**
-- Is it clear what the goal of the project is?
-- What type of model will be developed?
-- How will success be evaluated?
-- Is the scope of the project appropriate?
-- Is it clear who cares about this or why this is important to investigate?
-- Does the student consider the audience and the primary and secondary stakeholders?
-
-**Data Collection**
-- Was enough data gathered to generate a significant result?
-- Was data collected that was useful and relevant to the project?
-- Was data collection and storage optimized through custom functions, pipelines, and/or automation?
-- Was thought given to the server receiving the requests such as considering number of requests per second?
-
-**Data Cleaning and EDA**
-- Are missing values imputed/handled appropriately?
-- Are distributions examined and described?
-- Are outliers identified and addressed?
-- Are appropriate summary statistics provided?
-- Are steps taken during data cleaning and EDA framed appropriately?
-- Does the student address whether or not they are likely to be able to answer their problem statement with the provided data given what they've discovered during EDA?
-
-**Preprocessing and Modeling**
-- Is text data successfully converted to a matrix representation?
-- Are methods such as stop words, stemming, and lemmatization explored?
-- Does the student properly split and/or sample the data for validation/training purposes?
-- Does the student test and evaluate a variety of models to identify a production algorithm (**AT MINIMUM:** two classification models, **BONUS:** try a Naive Bayes)?
-- Does the student defend their choice of production model relevant to the data at hand and the problem?
-- Does the student explain how the model works and evaluate its performance successes/downfalls?
-
-**Evaluation and Conceptual Understanding**
-- Does the student accurately identify and explain the baseline score?
-- Does the student select and use metrics relevant to the problem objective?
-- Does the student interpret the results of their model for purposes of inference?
-- Is domain knowledge demonstrated when interpreting results?
-- Does the student provide appropriate interpretation with regards to descriptive and inferential statistics?
-
-**Conclusion and Recommendations**
-- Does the student provide appropriate context to connect individual steps back to the overall project?
-- Is it clear how the final recommendations were reached?
-- Are the conclusions/recommendations clearly stated?
-- Does the conclusion answer the original problem statement?
-- Does the student address how findings of this research can be applied for the benefit of stakeholders?
-- Are future steps to move the project forward identified?
-
-
-### Organization and Professionalism
-
-**Project Organization**
-- Are modules imported correctly (using appropriate aliases)?
-- Are data imported/saved using relative paths?
-- Does the README provide a good executive summary of the project?
-- Is markdown formatting used appropriately to structure notebooks?
-- Are there an appropriate amount of comments to support the code?
-- Are files & directories organized correctly?
-- Are there unnecessary files included?
-- Do files and directories have well-structured, appropriate, consistent names?
-
-**Visualizations**
-- Are sufficient visualizations provided?
-- Do plots accurately demonstrate valid relationships?
-- Are plots labeled properly?
-- Are plots interpreted appropriately?
-- Are plots formatted and scaled appropriately for inclusion in a notebook-based technical report?
-
-**Python Syntax and Control Flow**
-- Is care taken to write human readable code?
-- Is the code syntactically correct (no runtime errors)?
-- Does the code generate desired results (logically correct)?
-- Does the code follows general best practices and style guidelines?
-- Are Pandas functions used appropriately?
-- Are `sklearn` and `NLTK` methods used appropriately?
-
-**Presentation**
-- Is the problem statement clearly presented?
-- Does a strong narrative run through the presentation building toward a final conclusion?
-- Are the conclusions/recommendations clearly stated?
-- Is the level of technicality appropriate for the intended audience?
-- Is the student substantially over or under time?
-- Does the student appropriately pace their presentation?
-- Does the student deliver their message with clarity and volume?
-- Are appropriate visualizations generated for the intended audience?
-- Are visualizations necessary and useful for supporting conclusions/explaining findings?
+All modeling utilizes the lemmatized and special-character-stripped versions of the posts as X features, with the target of 'subreddit'.  None of the additional structural components were used in the classification models.  Much of the modeling experimentaiton was performed on a subset of the corpus; all hyperparameters were tuned in RandomSearchCV.  Three models are defined in Notebook C and fit to the whole (training) data.  Model results were pstored via pickle so their parameters and scoring metrics could be retrieved without rerunning monster fits.  The three final models include:
+* Multinomial Bayes with CountVectorization
+* Support Vector Classification with Term frequency-inverse document frequency (Tfidf) vectorization
+* Logistic Regression classifier with CountVectorization
 
 
 ---
 
-### Why did we choose this project for you?
-This project covers three of the biggest concepts we cover in the class: Classification Modeling, Natural Language Processing and Data Wrangling/Acquisition.
+### Summary
 
-Part 1 of the project focuses on **Data wrangling/gathering/acquisition**. This is a very important skill as not all the data you will need will be in clean CSVs or a single table in SQL.  There is a good chance that wherever you land you will have to gather some data from some unstructured/semi-structured sources; when possible, requesting information from an API, but often scraping it because they don't have an API (or it's terribly documented).
+The language of the subreddits was more easily (or at least accurately) classifiable than expected, based on the consistent high scores across multiple models.  Only Decision Trees showed significant overfitting (as expected), and tinkering to reduce this variance yielded much lower scores.  Beyond that example, all models tested here yielded similar results even in the face of very different RandomSearch parameters in subset testing.
 
-Part 2 of the project focuses on **Natural Language Processing** and converting standard text data (like Titles and Comments) into a format that allows us to analyze it and use it in modeling.
+All models presented here (and many iterations not presented) yielded similar scores: consistently in the mid-90s for F1, accuracy, recall, etc.  The SVC-TfIdf model yielded the best scores overall, with the following hyperparameters:
+- C = 0.63
+- degree = 2
+- tfidf max df = .932
+- tfidf max features = 4739
+- tfidf min df = .0022
 
-Part 3 of the project focuses on **Classification Modeling**.  Given that project 2 was a regression focused problem, we needed to give you a classification focused problem to practice the various models, means of assessment and preprocessing associated with classification.   
+SVC is a blackbox model so there is no coefficient interpretation resulting from this output.  The logreg model was included specifically to provide interpretable coefficients, but the model did not converge despite several refits.  Not converging means there isn't definitive interpretation for the coefficients resulting from that model, yet the scores were still mid-90s.  
+  
+EDA of the structural components show a few distinctions between the subreddits: pettyrevenge has a higher average word- and sentence-count, and trigram analysis shows a distint differentiation between each class.  
+
+![](data/wordcount_distrib.png)
+
+While many of the most frequent words for each subreddit were shared, looking at the ratio of word occurrence between the classes gives some valuable information for classification.  For instance, the word 'want' is frequent in both classes, but is 5 times more likely to appear in relationship_advice.  The two biggest indicators were 'Feel' (10x more likely to be in relationship_advice) and 'Car' (7x the change of being in pettyrevenge).  These words from this EDA analysis were commonly among the important features of the models in Notebook B.
+
+---
+
+### Conclusions
+
+In the problem scenario of having to properly classify these reddit posts as the new moderator, my conclusion is to use the SVC classification model with TfIdf vectorization.  Overall, models did not require extensive finetuning after the intitial RandomSearch.  Future steps that I will pursue later for practice are several: 
+1. pursuing a random forest model: I wanted to see this bootstrapping in action and what difference it might bring to the baseline decision tree.  However, performance was so high on other models it was a lower priority to pursue this model in the scope of answering the research question.
+2. Get the logreg model to converge.  What impact does this have on score and the parameters determined in the non-converged version?  Do the coefficients align with the relationships articulated in EDA?
+3. Incorporating the structural features (punctuation count, sentence length) into the classifier alongside vectorized data to see what difference that makes.  Can similar scores be achieved working with a fraction of the vectorized data if these structural components are significant?  This would save a lot of computational energy.
+
+This project was multifaceted and interesting, despite feeling under the gun when it came to presenting findings.  The webscraping in particular was completely foreign to me and it was enlightening to see how it works.  I'm excited for what this might mean for data accessibility for capstone.
