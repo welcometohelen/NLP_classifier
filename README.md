@@ -1,8 +1,8 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 3: Web APIs & NLP
+# Web APIs & NLP
 
 ### Problem Statement
 
-The goal of this project is to create a Natural Language Processing (NLP) classifier.  The narrative for presentation was flippant, for the purpose of keeping an audience of students interested:
+The goal of this project is to create a Natural Language Processing (NLP) classifier.  The narrative for presentation was flippant, for the purpose of keeping a student audience interested:
 'The previous moderator of Reddit's popular forums r/Relationship_advice and r/Pettyrevenge has been forced to resign due to excessive content removal, and while stepping down from power he burned the house down behind him.  He has sabotaged his successor by stripping the identification info from all posts made during his tenure.  It is our job to go about restoring posts to their proper threads so users can interact with their desired communities.  Sloppy classification risks offending constituents of both subreddits.  You have access to some archived data that are still properly identified.  Can you create a classifier to sort through the chaos?'  
 
 This project utilizes webscraping, sklearn's NLP toolkit, EDA, and iterative modeling to provide several classifiers that can sort these subreddit posts with >- .95 F1 scores, accuracy, and recall.
