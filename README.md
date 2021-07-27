@@ -15,7 +15,7 @@ Posts were scraped from subreddits 'pettyrevenge' and 'relationship_advice' via 
 
 Cleaning involved dropping 'removed' and 'deleted' posts, and removing URLS.  Structural characteristics such as number of sentences per post, average sentence length, and use of punctuation were then preserved in new columns. Finally, all special characters were stripped from the documents to allow for efficient lemmatization and vectorization.  This occurs in Notebook B, along with all EDA and visualizations.  
 
-All modeling utilizes the lemmatized and special-character-stripped versions of the posts as features, with the target of 'subreddit' (binary classification).  The additional structural components were used only for EDA and visualization; they were no included in the classification models.  Much of the modeling experimentaiton was performed on a subset of the corpus; all hyperparameters were tuned in RandomSearchCV.  Three models are defined in Notebook C and fit to the whole (training) data.  Model results were pickled so their parameters and scoring metrics could be retrieved without rerunning monster fits.  The three final models include:
+All modeling utilizes the lemmatized and special-character-stripped versions of the posts as features, with the target of 'subreddit' (binary classification).  The additional structural components were used only for EDA and visualization; they were no included in the classification models.  Much of the modeling experimentaiton was performed on a subset of the corpus.  Three models are defined in Notebook C and fit to the whole (training) data.  Model results were pickled so their parameters and scoring metrics could be retrieved without rerunning monster fits.  The three final models include:
 * Multinomial Bayes with CountVectorization
 * Support Vector Classification with Term frequency-inverse document frequency (Tfidf) vectorization
 * Logistic Regression classifier with CountVectorization
@@ -25,9 +25,9 @@ All modeling utilizes the lemmatized and special-character-stripped versions of 
 
 ### Summary
 
-The language of the subreddits was more easily (or at least more accurately) classifiable than expected, based on the consistent high scores across multiple models.  Only Decision Trees showed significant overfitting, and tinkering to reduce this variance yielded much lower scores across all classification metrics.  Beyond that example, all models tested here yielded similar results even in the face of very different RandomSearch parameters in subset testing.
+The language of the subreddits was more easily (or at least more accurately) classifiable than expected, based on the consistent high scores across multiple models.  Only Decision Trees showed significant overfitting, and tinkering to reduce this variance yielded much lower scores across all classification metrics.  Beyond that example, all models tested here yielded similar results even in the face of very different parameters in subset testing.
 
-All models presented here (and many iterations not presented) yielded similar scores: consistently in the mid-90s for F1, accuracy, recall, etc.  The SVC-TfIdf model yielded the best scores overall, with the following hyperparameters:
+All models presented here (and many iterations not presented) yielded similar scores: consistently mid-90s for all classification metrics considered.  The SVC-TfIdf model yielded the best scores overall --> F1 = 0.959, accuracy = 0.958, sensitivity = 0.961, precision = 0.954, specificity = 0.954.  These scores were acheived with the following hyperparameters, tuned via RandomizedSearchCV:
 - C = 0.63
 - degree = 2
 - tfidf max df = .932
